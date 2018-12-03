@@ -20,6 +20,11 @@ if ! docker info >/dev/null 2>&1; then
 	exit 1
 fi
 
+# Create env file for docker-compose
+if [ ! -f '.wordpress.env' ]; then
+  touch .wordpress.env
+fi
+
 # Stop existing containers.
 echo -e $(status_message "Stopping Docker containers...")
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS down --remove-orphans >/dev/null 2>&1
