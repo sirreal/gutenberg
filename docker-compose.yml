@@ -6,9 +6,14 @@ services:
     image: wordpress
     ports:
       - 8888:80
+    env_file:
+      - .wordpress.env
     environment:
       WORDPRESS_DB_PASSWORD: example
       ABSPATH: /usr/src/wordpress/
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'SCRIPT_DEBUG', ${SCRIPT_DEBUG:-false} );
+        define( 'GUTENBERG_DEVELOPMENT_MODE', ${GUTENBERG_DEVELOPMENT_MODE:-false} );
     volumes:
       - wordpress:/var/www/html
       - .:/var/www/html/wp-content/plugins/gutenberg
